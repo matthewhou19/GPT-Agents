@@ -1,0 +1,28 @@
+<p>create-agent-form works!</p>
+
+<h3>Create Agent</h3>
+<form>
+  <div class="mb-3">
+    <label for="agent-role-declare" class="form-label">Agent role</label>
+    <input
+      type="text"
+      class="form-control"
+      id="agent-role-declare"
+      placeholder=" {{ agentRole }}"
+      [(ngModel)]="agentRole"
+    />
+  </div>
+  <div class="mb-3">
+    <label for="agent-desciption-declare" class="form-label">description</label>
+    <textarea
+      class="form-control"
+      id="agent-desciption-declare"
+      rows="3"
+      [(ngModel)]="agentDescription"
+      >{{ agentDescription }}</textarea
+    >
+    <button type="submit" class="btn btn-primary" (click)="onAddAgent()">
+      Submit
+    </button>
+  </div>
+</form>
