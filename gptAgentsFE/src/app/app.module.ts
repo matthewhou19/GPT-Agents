@@ -8,6 +8,7 @@ import { CreateAgentFormComponent } from './create-agent-form/create-agent-form.
 import { AgentListComponent } from './agent-list/agent-list.component';
 import { AgentElementComponent } from './agent-element/agent-element.component';
 import { FormsModule } from '@angular/forms';
+import { ChartboradComponent } from './chartborad/chartborad.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { FormsModule } from '@angular/forms';
     CreateAgentFormComponent,
     AgentListComponent,
     AgentElementComponent,
+    ChartboradComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, NgbModule, FormsModule],
   providers: [],

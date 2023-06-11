@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { Agent } from '../modle/agent';
 
 @Component({
@@ -9,5 +9,10 @@ import { Agent } from '../modle/agent';
 export class CreateAgentFormComponent {
   agentRole = "such as 'translator'";
   agentDescription = "SUCH AS 'tranlate english paragraphs to Chinesse'";
-  onAddAgent() {}
+  @Output()
+  agentCreated = new EventEmitter<Agent>();
+
+  onAddAgent() {
+    this.agentCreated.emit(new Agent(this.agentRole, this.agentDescription));
+  }
 }

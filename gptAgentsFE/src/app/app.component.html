@@ -1,6 +1,8 @@
 <div class="container">
   <p>this a new line</p>
-  <app-create-agent-form></app-create-agent-form>
+  <app-create-agent-form
+    (agentCreated)="onAgentCreated($event)"
+  ></app-create-agent-form>
   <hr />
   <app-agent-list></app-agent-list>
 </div>
