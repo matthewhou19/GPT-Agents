@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Agent } from './../modle/agent';
+import { Component, ViewChild, EventEmitter, Output } from '@angular/core';
+
+import { AgentsService } from '../services/agents/agents.service';
 
 @Component({
   selector: 'app-agent-list',
@@ -6,5 +9,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./agent-list.component.css'],
 })
 export class AgentListComponent {
-  agentLists = [{ role: 'testRole', description: 'test description' }];
+  agentLists;
+
+  constructor(private agentService: AgentsService) {
+    this.agentLists = agentService.getAgents();
+  }
 }
