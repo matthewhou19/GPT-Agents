@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import { Agent } from '../modle/agent';
+import { Agent } from './../modle/agent';
+import { Component, ViewChild, EventEmitter, Output } from '@angular/core';
+
+import { AgentsService } from '../services/agents/agents.service';
 
 @Component({
   selector: 'app-agent-list',
@@ -7,9 +9,9 @@ import { Agent } from '../modle/agent';
   styleUrls: ['./agent-list.component.css'],
 })
 export class AgentListComponent {
-  agentLists = [{ role: 'testRole', description: 'test description' }];
+  agentLists;
 
-  addAgent(agent: Agent): void {
-    this.agentLists.push(agent);
+  constructor(private agentService: AgentsService) {
+    this.agentLists = agentService.getAgents();
   }
 }

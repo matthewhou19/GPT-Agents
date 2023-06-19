@@ -1,5 +1,6 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 import { Agent } from '../modle/agent';
+import { AgentsService } from '../services/agents/agents.service';
 
 @Component({
   selector: 'app-create-agent-form',
@@ -9,10 +10,13 @@ import { Agent } from '../modle/agent';
 export class CreateAgentFormComponent {
   agentRole = "such as 'translator'";
   agentDescription = "SUCH AS 'tranlate english paragraphs to Chinesse'";
-  @Output()
-  agentCreated = new EventEmitter<Agent>();
+
+  constructor(private agentService: AgentsService) {}
 
   onAddAgent() {
-    this.agentCreated.emit(new Agent(this.agentRole, this.agentDescription));
+    this.agentService.addAgent({
+      role: this.agentRole,
+      description: this.agentDescription,
+    });
   }
 }
