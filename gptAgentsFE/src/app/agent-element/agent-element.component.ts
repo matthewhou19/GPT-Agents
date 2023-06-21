@@ -1,6 +1,7 @@
 import { ChatService } from './../services/chatServices/chat-services.service';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Agent } from '../modle/agent';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-agent-element',
@@ -11,9 +12,9 @@ export class AgentElementComponent {
   @Input()
   agent: Agent;
 
-  constructor(private chatservice: ChatService) {}
+  constructor(private chatservice: ChatService, private router: Router) {}
   selectAgent() {
     this.chatservice.agent = this.agent;
-    console.log('select agent ' + this.agent.role);
+    this.router.navigate(['chat-board/' + this.agent.id]);
   }
 }

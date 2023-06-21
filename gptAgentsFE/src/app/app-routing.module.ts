@@ -7,7 +7,7 @@ import { ChatboardComponent } from './chatboard/chatboard.component';
 const routes: Routes = [
   { path: 'create-agent', component: CreateAgentFormComponent },
   { path: '', component: AgentListComponent },
-  { path: 'chat-board', component: ChatboardComponent },
+  { path: 'chat-board/:id', component: ChatboardComponent },
 ];
 
 @NgModule({
