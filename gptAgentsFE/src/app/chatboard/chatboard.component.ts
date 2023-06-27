@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Agent } from '../modle/agent';
 import { ChatService } from '../services/chatServices/chat-services.service';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -9,28 +9,13 @@ import { AgentsService } from '../services/agents/agents.service';
   templateUrl: './chatboard.component.html',
   styleUrls: ['./chatboard.component.css'],
 })
-export class ChatboardComponent {
+export class ChatboardComponent implements OnInit {
   agent: Agent;
-  constructor(
-    private agentService: AgentsService,
-    private route: ActivatedRoute
-  ) {
-    const params = this.route.snapshot.params;
+  constructor(private activatedRoute: ActivatedRoute) {}
 
-    this.reactiveHelper(params);
-
-    this.route.params.subscribe((params: Params) => {
-      this.reactiveHelper(params);
+  ngOnInit(): void {
+    this.activatedRoute.data.subscribe((data) => {
+      this.agent = data['agent'];
     });
-  }
-
-  private reactiveHelper(params: Params) {
-    const id = params['id'] as number;
-    const a = this.agentService.getAgentById(id);
-    if (a) {
-      this.agent = a;
-    } else {
-      alert('Could not find this agent');
-    }
   }
 }

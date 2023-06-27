@@ -14,7 +14,6 @@ export class AgentElementComponent {
 
   constructor(private chatservice: ChatService, private router: Router) {}
   selectAgent() {
-    this.chatservice.agent = this.agent;
     this.router.navigate(['chat-board/' + this.agent.id]);
   }
 }

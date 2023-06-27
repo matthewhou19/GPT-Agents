@@ -1,4 +1,4 @@
-import { AgentsService } from 'agents.service';
+import { AgentsService } from './agents.service';
 import { TestBed } from '@angular/core/testing';
 
 describe('AgentsService', () => {

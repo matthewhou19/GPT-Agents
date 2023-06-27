@@ -1,5 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Agent } from '../../modle/agent';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs';
+import {
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+  ResolveFn,
+} from '@angular/router';
 
 @Injectable()
 export class AgentsService {
@@ -21,8 +28,21 @@ export class AgentsService {
     return this.agents;
   }
 
-  getAgentById(id: number) {
-    if (id >= this.agents.length) return undefined;
-    return this.agents[id];
+  getAgentById(id: number): Observable<Agent> {
+    return of(this.agents[id]);
   }
 }
+
+export const AgentIdResolver: ResolveFn<any> = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot
+) => {
+  return inject(AgentsService)
+    .getAgentById(+route.params['id'])
+    .pipe(
+      catchError((error) => {
+        console.error('Error retrieving data', error);
+        return of('No data');
+      })
+    );
+};
