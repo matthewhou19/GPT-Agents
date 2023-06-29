@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Agent } from 'src/app/modle/agent';
-import { BehaviorSubject } from 'rxjs';
+import { of, Observable, delay } from 'rxjs';
+import { Massage } from 'src/app/modle/Massage';
 
 @Injectable()
 export class ChatService {
-  private messages: BehaviorSubject<string[]> = new BehaviorSubject<string[]>(
-    []
-  );
-  private userInput: BehaviorSubject<string> = new BehaviorSubject<string>('');
-
   constructor() {}
+  sendMessage(userMessage: Massage): Observable<Massage> {
+    return of(new Massage('example response', 'openAi'));
+  }
 }
