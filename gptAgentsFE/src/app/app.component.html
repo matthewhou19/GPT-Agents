@@ -1,8 +1,25 @@
 <div class="container">
-  <p>this a new line</p>
-  <app-create-agent-form></app-create-agent-form>
-  <hr />
-  <app-agent-list></app-agent-list>
-  <hr />
-  <app-chatboard></app-chatboard>
+  <div class="row">
+    <nav class="nav nav-tabs">
+      <a
+        class="nav-link active"
+        aria-current="page"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        routerLink=""
+        >home</a
+      >
+      <a class="nav-link" routerLinkActive="active" routerLink="create-agent"
+        >create an agent</a
+      >
+      <a class="nav-link" routerLinkActive="active" routerLink="chat-list"
+        >chat-list</a
+      >
+    </nav>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 </div>

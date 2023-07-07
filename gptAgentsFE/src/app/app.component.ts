@@ -12,8 +12,4 @@ export class AppComponent {
 
   @ViewChild(AgentListComponent) agentList!: AgentListComponent;
   @ViewChild(ChatboardComponent) chatboard!: ChatboardComponent;
-
-  onOpenChat(data: Agent) {
-    this.chatboard.agent = data;
-  }
 }

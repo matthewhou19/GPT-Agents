@@ -11,6 +11,9 @@ import { FormsModule } from '@angular/forms';
 import { ChatboardComponent } from './chatboard/chatboard.component';
 import { AgentsService } from './services/agents/agents.service';
 import { ChatService } from './services/chatServices/chat-services.service';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ChatListComponent } from './chat-list/chat-list.component';
+import { ChatElementComponent } from './chat-element/chat-element.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +22,9 @@ import { ChatService } from './services/chatServices/chat-services.service';
     AgentListComponent,
     AgentElementComponent,
     ChatboardComponent,
+    PageNotFoundComponent,
+    ChatListComponent,
+    ChatElementComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, NgbModule, FormsModule],
   providers: [AgentsService, ChatService],
