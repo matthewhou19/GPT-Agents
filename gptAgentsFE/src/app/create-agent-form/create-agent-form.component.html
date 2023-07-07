@@ -1,17 +1,21 @@
 <p>create-agent-form works!</p>
 
 <h3>Create Agent</h3>
-<form>
+<form (ngSubmit)="onSubmit()" #f="ngForm">
   <div class="mb-3">
     <label for="agent-role-declare" class="form-label">Agent role</label>
     <input
       type="text"
       class="form-control"
       id="agent-role-declare"
-      placeholder=" {{ agentRole }}"
-      [(ngModel)]="agentRole"
-      [ngModelOptions]="{ standalone: true }"
+      [ngModel]="defualtRole"
+      name="role"
+      required
+      #role="ngModel"
     />
+    <span *ngIf="!role.valid && role.touched" class="help-block"
+      >tell gpt what role you what it to play</span
+    >
   </div>
   <div class="mb-3">
     <label for="agent-desciption-declare" class="form-label">description</label>
@@ -19,12 +23,15 @@
       class="form-control"
       id="agent-desciption-declare"
       rows="3"
-      [(ngModel)]="agentDescription"
-      [ngModelOptions]="{ standalone: true }"
-      >{{ agentDescription }}</textarea
-    >
-    <button type="submit" class="btn btn-primary" (click)="onAddAgent()">
+      [ngModel]="defaultDescription"
+      name="description"
+      required
+    ></textarea>
+    <button [disabled]="!f.valid" type="save" class="btn btn-primary">
       Submit
+    </button>
+    <button type="save" class="btn btn-warning" (click)="cancel()">
+      Cancel
     </button>
   </div>
 </form>

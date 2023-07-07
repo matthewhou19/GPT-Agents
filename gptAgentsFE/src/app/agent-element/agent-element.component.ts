@@ -14,6 +14,14 @@ export class AgentElementComponent {
 
   constructor(private chatservice: ChatService, private router: Router) {}
   selectAgent() {
-    this.router.navigate(['chat-board/' + this.agent.id]);
+    const id = this.chatservice.addChat(this.agent);
+
+    this.router.navigate(['chat-list/chat-board/' + id]);
+  }
+
+  editAgent() {
+    console.log('agent/edit/' + this.agent.id);
+
+    this.router.navigate(['agent/edit/' + this.agent.id]);
   }
 }

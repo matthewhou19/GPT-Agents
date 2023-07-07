@@ -31,6 +31,12 @@ export class AgentsService {
   getAgentById(id: number): Observable<Agent> {
     return of(this.agents[id]);
   }
+
+  updateAgent(id: number, newAgent: Agent) {
+    const original = this.agents[id];
+    original.role = newAgent.role;
+    original.description = newAgent.description;
+  }
 }
 
 export const AgentIdResolver: ResolveFn<any> = (

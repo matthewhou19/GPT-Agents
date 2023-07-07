@@ -12,4 +12,8 @@ export class Agent {
     agent1.role = agent2.role;
     agent1.description = agent2.description;
   }
+
+  static createFromObj(o: { role: string; description: string }): Agent {
+    return new Agent(o.role, o.description);
+  }
 }

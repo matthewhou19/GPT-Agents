@@ -5,13 +5,14 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { AgentsService } from '../services/agents/agents.service';
 import { Massage } from '../modle/Massage';
 import { timeout, catchError, of } from 'rxjs';
+import { Chat } from '../modle/chat';
 @Component({
   selector: 'app-chatboard',
   templateUrl: './chatboard.component.html',
   styleUrls: ['./chatboard.component.css'],
 })
 export class ChatboardComponent implements OnInit {
-  agent: Agent;
+  chat: Chat;
 
   public messages: Massage[] = [];
   public inputMessage: string = '';
@@ -23,7 +24,7 @@ export class ChatboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe((data) => {
-      this.agent = data['agent'];
+      this.chat = data['chat'];
     });
   }
 
