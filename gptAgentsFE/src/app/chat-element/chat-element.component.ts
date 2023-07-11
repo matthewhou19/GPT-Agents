@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Chat } from '../modle/chat';
 import { AgentsService } from '../services/agents/agents.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-chat-element',
@@ -11,5 +12,8 @@ export class ChatElementComponent {
   @Input()
   chat: Chat;
 
-  constructor() {}
+  constructor(private router: Router) {}
+  openChat() {
+    this.router.navigate(['chat-list/chat-board/' + this.chat.id]);
+  }
 }
