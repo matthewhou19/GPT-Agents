@@ -3,6 +3,7 @@ package com.example.gptagents.controllers;
 
 import com.example.gptagents.Services.AgentService;
 import com.example.gptagents.model.Agent;
+import com.example.gptagents.model.ResponseMassage;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -37,17 +38,17 @@ public class AgentController {
     }
 
     @PutMapping("update")
-    public ResponseEntity<String> updateAgent(@RequestBody Agent agent) {
+    public ResponseEntity<ResponseMassage> updateAgent(@RequestBody Agent agent) {
         if (agentService.updateAgent(agent)) {
-            return ResponseEntity.ok("Successfully updated.");
+            return new ResponseEntity<>(new ResponseMassage("Agent", "update", "successfully"), HttpStatus.OK);
         }
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update agent.");
+        return new ResponseEntity<>(new ResponseMassage("Agent", "update", "Failed"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @DeleteMapping("delete/{id}")
-    public ResponseEntity<String> deleteAgent(@PathVariable Long id) {
+    public ResponseEntity<ResponseMassage> deleteAgent(@PathVariable Long id) {
         agentService.deleteAgent(id);
-        return ResponseEntity.ok("Successfully deleted.");
+        return new ResponseEntity<>(new ResponseMassage("Agent", "delete", "successfully"), HttpStatus.OK);
 
     }
 }

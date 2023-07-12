@@ -1,5 +1,11 @@
 import { Agent } from './../modle/agent';
-import { Component, ViewChild, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  EventEmitter,
+  Output,
+  OnInit,
+} from '@angular/core';
 
 import { AgentsService } from '../services/agents/agents.service';
 
@@ -8,10 +14,13 @@ import { AgentsService } from '../services/agents/agents.service';
   templateUrl: './agent-list.component.html',
   styleUrls: ['./agent-list.component.css'],
 })
-export class AgentListComponent {
-  agentLists;
+export class AgentListComponent implements OnInit {
+  agentLists: Agent[];
 
-  constructor(private agentService: AgentsService) {
-    this.agentLists = agentService.getAgents();
+  constructor(private agentService: AgentsService) {}
+  ngOnInit(): void {
+    this.agentService.getAgentUpdates().subscribe((agentUpdates) => {
+      this.agentLists = agentUpdates;
+    });
   }
 }

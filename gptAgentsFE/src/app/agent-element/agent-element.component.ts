@@ -1,3 +1,4 @@
+import { AgentsService } from './../services/agents/agents.service';
 import { ChatService } from './../services/chatServices/chat-services.service';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Agent } from '../modle/agent';
@@ -12,7 +13,11 @@ export class AgentElementComponent {
   @Input()
   agent: Agent;
 
-  constructor(private chatservice: ChatService, private router: Router) {}
+  constructor(
+    private chatservice: ChatService,
+    private router: Router,
+    private agentService: AgentsService
+  ) {}
   selectAgent() {
     const id = this.chatservice.addChat(this.agent);
 
@@ -20,8 +25,9 @@ export class AgentElementComponent {
   }
 
   editAgent() {
-    console.log('agent/edit/' + this.agent.id);
-
     this.router.navigate(['agent/edit/' + this.agent.id]);
+  }
+  deleteAgent() {
+    this.agentService.deleteAgent(this.agent.id!);
   }
 }

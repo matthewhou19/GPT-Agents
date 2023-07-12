@@ -14,6 +14,7 @@ import { ChatService } from './services/chatServices/chat-services.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ChatListComponent } from './chat-list/chat-list.component';
 import { ChatElementComponent } from './chat-element/chat-element.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,13 @@ import { ChatElementComponent } from './chat-element/chat-element.component';
     ChatListComponent,
     ChatElementComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, NgbModule, FormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NgbModule,
+    FormsModule,
+    HttpClientModule,
+  ],
   providers: [AgentsService, ChatService],
   bootstrap: [AppComponent],
 })
