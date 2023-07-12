@@ -31,12 +31,12 @@ public class AgentController {
         return new ResponseEntity<>(agentService.getAgent(id), HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<Agent> createAgent(@RequestBody Agent agent) {
         return new ResponseEntity<>(agentService.createAgent(agent), HttpStatus.OK);
     }
 
-    @PutMapping
+    @PutMapping("update")
     public ResponseEntity<String> updateAgent(@RequestBody Agent agent) {
         if (agentService.updateAgent(agent)) {
             return ResponseEntity.ok("Successfully updated.");
@@ -46,9 +46,8 @@ public class AgentController {
 
     @DeleteMapping("delete/{id}")
     public ResponseEntity<String> deleteAgent(@PathVariable Long id) {
-        if (agentService.deleteAgent(id)) {
-            return ResponseEntity.ok("Successfully deleted.");
-        }
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete agent.");
+        agentService.deleteAgent(id);
+        return ResponseEntity.ok("Successfully deleted.");
+
     }
 }

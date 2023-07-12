@@ -1,7 +1,7 @@
 package com.example.gptagents.Repositories;
 
-import org.springframework.stereotype.Repository;
+import com.example.gptagents.model.Agent;
+import org.springframework.data.repository.CrudRepository;
 
-@Repository
-public class AgentRepository {
+public interface AgentRepository extends CrudRepository<Agent, Long> {
 }
