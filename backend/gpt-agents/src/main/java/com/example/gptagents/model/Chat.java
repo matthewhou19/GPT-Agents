@@ -1,8 +1,10 @@
 package com.example.gptagents.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Chat {
@@ -11,6 +13,17 @@ public class Chat {
     private Long id;
     private String roleName;
     private String description;
+
+    @OneToMany (fetch = FetchType.LAZY)
+    private List<Message> messages = new ArrayList<>();
+
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
+    }
 
     public Chat() {
     }

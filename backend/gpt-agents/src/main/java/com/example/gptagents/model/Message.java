@@ -14,6 +14,17 @@ public class Message {
     @Enumerated(EnumType.STRING)
     private MessageSource source;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Chat chat;
+
+    public Chat getChat() {
+        return chat;
+    }
+
+    public void setChat(Chat chat) {
+        this.chat = chat;
+    }
+
     public Message(Long id, String content, MessageSource source) {
         this.id = id;
         Content = content;
@@ -47,18 +58,5 @@ public class Message {
         this.source = source;
     }
 
-    public enum MessageSource {
-        USER("User"),
-        AI("AI");
 
-        private String value;
-
-        MessageSource(String value) {
-            this.value = value;
-        }
-
-        public String getValue() {
-            return value;
-        }
-    }
 }
