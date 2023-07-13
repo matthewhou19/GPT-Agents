@@ -18,10 +18,10 @@ export class AgentElementComponent {
     private router: Router,
     private agentService: AgentsService
   ) {}
-  selectAgent() {
-    const id = this.chatservice.addChat(this.agent);
-
-    this.router.navigate(['chat-list/chat-board/' + id]);
+  async selectAgent() {
+    this.chatservice.addChat(this.agent).subscribe((chat) => {
+      this.router.navigate(['chat-list/chat-board/' + chat.id]);
+    });
   }
 
   editAgent() {

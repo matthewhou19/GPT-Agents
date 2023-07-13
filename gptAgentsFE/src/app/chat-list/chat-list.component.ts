@@ -10,6 +10,9 @@ export class ChatListComponent {
   chatList: Chat[];
 
   constructor(private chatService: ChatService) {
-    this.chatList = chatService.getChatList();
+    chatService.getChatList().subscribe((chatList) => {
+      this.chatList = chatList;
+      console.log(chatList);
+    });
   }
 }
