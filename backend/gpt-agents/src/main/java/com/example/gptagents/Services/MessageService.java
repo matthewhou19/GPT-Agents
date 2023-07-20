@@ -29,9 +29,13 @@ public class MessageService {
 
     @Transactional
     public Message postMessage(Message message) {
-        System.out.println(openAIService.chat(new openAIMessage("user", message.getContent())));
-
-        return messageRepository.save(message);
+        String aiRespond =  openAIService.chat(new openAIMessage("user", message.getContent()));
+        Message resMessage = new Message();
+        resMessage.setSource(MessageSource.AI);
+        resMessage.setChat(message.getChat());
+        resMessage.setContent(aiRespond);
+        messageRepository.save(message);
+        return messageRepository.save(resMessage);
     }
 
     public Message DTOToEntity(MessageDTO DTO) {
