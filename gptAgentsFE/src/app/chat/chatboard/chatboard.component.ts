@@ -1,11 +1,11 @@
-import { ChatService } from './../services/chatServices/chat-services.service';
+import { ChatService } from '.././../services/chatServices/chat-services.service';
 import { Component, OnInit } from '@angular/core';
-import { Agent } from '../modle/agent';
+import { Agent } from '../../modle/agent';
 import { ActivatedRoute, Params } from '@angular/router';
-import { AgentsService } from '../services/agents/agents.service';
-import { Massage } from '../modle/Massage';
+import { AgentsService } from '../../services/agents/agents.service';
+import { Massage } from '../../modle/Massage';
 import { timeout, catchError, of } from 'rxjs';
-import { Chat } from '../modle/chat';
+import { Chat } from '../../modle/chat';
 @Component({
   selector: 'app-chatboard',
   templateUrl: './chatboard.component.html',

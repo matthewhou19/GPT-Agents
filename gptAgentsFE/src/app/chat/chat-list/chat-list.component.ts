@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Chat } from '../modle/chat';
-import { ChatService } from '../services/chatServices/chat-services.service';
+import { Chat } from '../../modle/chat';
+import { ChatService } from '../../services/chatServices/chat-services.service';
 @Component({
   selector: 'app-chat-list',
   templateUrl: './chat-list.component.html',
@@ -10,7 +10,7 @@ export class ChatListComponent {
   chatList: Chat[];
 
   constructor(private chatService: ChatService) {
-    chatService.getChatList().subscribe((chatList) => {
+    this.chatService.getChatList().subscribe((chatList) => {
       this.chatList = chatList;
       console.log(chatList);
     });

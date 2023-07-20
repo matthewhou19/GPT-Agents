@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Chat } from '../modle/chat';
-import { AgentsService } from '../services/agents/agents.service';
+import { Chat } from '../../modle/chat';
 import { Router } from '@angular/router';
 
 @Component({
