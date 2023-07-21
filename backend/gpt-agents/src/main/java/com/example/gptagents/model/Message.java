@@ -4,6 +4,16 @@ import jakarta.persistence.*;
 
 @Entity
 public class Message {
+    @Override
+    public String toString() {
+        return "Message{" +
+                "id=" + id +
+                ", Content='" + Content + '\'' +
+                ", source=" + source +
+                ", chat=" + chat.getId() +
+                '}';
+    }
+
     @Id
     @GeneratedValue
     private Long id;

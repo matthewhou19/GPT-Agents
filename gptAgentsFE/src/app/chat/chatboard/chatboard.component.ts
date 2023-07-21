@@ -1,9 +1,9 @@
 import { ChatService } from '.././../services/chatServices/chat-services.service';
 import { Component, OnInit } from '@angular/core';
-import { Agent } from '../../modle/agent';
+
 import { ActivatedRoute, Params } from '@angular/router';
-import { AgentsService } from '../../services/agents/agents.service';
-import { Massage } from '../../modle/Massage';
+import { MessageService } from 'src/app/services/MessageService/message-service.service';
+import { Message } from '../../modle/Message';
 import { timeout, catchError, of } from 'rxjs';
 import { Chat } from '../../modle/chat';
 @Component({
@@ -14,31 +14,43 @@ import { Chat } from '../../modle/chat';
 export class ChatboardComponent implements OnInit {
   chat: Chat;
 
-  public messages: Massage[] = [];
+  public messages: Message[] = [];
   public inputMessage: string = '';
   public isSending: boolean = false;
   constructor(
     private activatedRoute: ActivatedRoute,
-    private chatService: ChatService
+    private chatService: ChatService,
+    private messagesService: MessageService
   ) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe((data) => {
       this.chat = data['chat'];
+      this.chat.id = data['chat'].id;
+      //console.log(data['chat'].id);
+
+      this.messagesService
+        .requestAllMessage(data['chat'].id)
+        .subscribe((messagesBack) => {
+          this.messages = messagesBack;
+
+          console.log(messagesBack);
+        });
     });
   }
 
   sendMessage() {
     console.log(this.inputMessage);
-    this.messages.push(new Massage(this.inputMessage, 'user'));
+    this.messages.push(new Message(this.inputMessage, 'USER'));
     this.isSending = true;
-    this.chatService
-      .sendMessage(new Massage(this.inputMessage, 'user'))
+    console.log(this.chat.id);
+    this.messagesService
+      .sendMessage(new Message(this.inputMessage, 'USER'), this.chat.id!)
       .pipe(
-        timeout(2000),
+        timeout(20000),
         catchError((error) => {
           console.log(error);
-          return of(new Massage('timeout error', 'openAi'));
+          return of(new Message(error, 'AI'));
         })
       )
       .subscribe({

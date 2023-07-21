@@ -14,8 +14,18 @@ public class Chat {
     private String roleName;
     private String description;
 
-    @OneToMany (fetch = FetchType.LAZY)
+    @OneToMany (fetch = FetchType.LAZY,cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Message> messages = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Chat{" +
+                "id=" + id +
+                ", roleName='" + roleName + '\'' +
+                ", description='" + description + '\'' +
+                ", messages=" + messages +
+                '}';
+    }
 
     public List<Message> getMessages() {
         return messages;

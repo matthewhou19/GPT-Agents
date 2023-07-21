@@ -10,7 +10,13 @@
             style="height: 400px; overflow-y: scroll"
           >
             <div id="chat-window" *ngIf="messages.length > 0">
-              <div *ngFor="let message of messages">
+              <div
+                *ngFor="let message of messages"
+                [ngStyle]="{
+                  'background-color':
+                    message.messageSource == 'USER' ? 'white' : '#cccccc'
+                }"
+              >
                 {{ message.content }}
               </div>
             </div>

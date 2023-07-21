@@ -5,6 +5,7 @@ import com.example.gptagents.Repositories.ChatRepository;
 import com.example.gptagents.errors.ResourceNotFoundException;
 import com.example.gptagents.model.Agent;
 import com.example.gptagents.model.Chat;
+import com.example.gptagents.model.ChatDTO;
 import com.example.gptagents.model.CreateChatRequest;
 import org.springframework.stereotype.Service;
 
@@ -34,5 +35,20 @@ public class ChatService {
 
     public Chat getChatById(Long id) {
         return chatRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Chat", "id", id));
+    }
+
+    public Chat DTOToEntity(ChatDTO DTO) {
+        Chat chat =  new Chat();
+        chat.setId(DTO.getId());
+        chat.setDescription(DTO.getDescription());
+        chat.setRoleName(DTO.getRoleName());
+        return chat;
+    }
+    public ChatDTO entityToDTO(Chat chat) {
+        ChatDTO DTO =new ChatDTO();
+        DTO.setId(chat.getId());
+        DTO.setDescription(chat.getDescription());
+        DTO.setRoleName(chat.getRoleName());
+        return  DTO;
     }
 }

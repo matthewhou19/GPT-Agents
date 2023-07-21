@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Agent } from 'src/app/modle/agent';
 import { of, Observable, delay, catchError, Subject, tap } from 'rxjs';
-import { Massage } from 'src/app/modle/Massage';
+import { Message } from 'src/app/modle/Message';
 import { Chat } from 'src/app/modle/chat';
 import { HttpClient } from '@angular/common/http';
 import {
@@ -12,12 +12,13 @@ import {
 @Injectable()
 export class ChatService {
   private chats$: Subject<Chat[]> = new Subject<Chat[]>();
+
   constructor(private http: HttpClient) {
     this.refreshChats();
   }
 
-  sendMessage(userMessage: Massage): Observable<Massage> {
-    return of(new Massage('example response', 'openAi'));
+  sendMessage(userMessage: Message): Observable<Message> {
+    return of(new Message('example response', 'AI'));
   }
 
   getChatList(): Observable<Chat[]> {
