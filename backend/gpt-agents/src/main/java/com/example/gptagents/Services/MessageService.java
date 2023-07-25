@@ -32,17 +32,20 @@ public class MessageService {
     @Transactional
     public Message postMessage(Message message) {
         String aiRespond =  openAIService.chat(new openAIMessage("user", message.getContent()));
-        Message resMessage = new Message();
-        resMessage.setSource(MessageSource.AI);
-        resMessage.setChat(message.getChat());
-        resMessage.setContent(aiRespond);
-        Chat c =message.getChat();
-        c.getMessages().add(message);
-        c.getMessages().add(resMessage);
+        if (aiRespond != null && aiRespond.length() > 0) {
+            Message resMessage = new Message();
+            resMessage.setSource(MessageSource.AI);
+            resMessage.setChat(message.getChat());
+            resMessage.setContent(aiRespond);
+            Chat c =message.getChat();
+            c.getMessages().add(message);
+            c.getMessages().add(resMessage);
 
-        chatRepository.save(c);
+            chatRepository.save(c);
 
-        return resMessage;
+            return resMessage;
+        }
+        return null;
     }
 
     public Message DTOToEntity(MessageDTO DTO) {

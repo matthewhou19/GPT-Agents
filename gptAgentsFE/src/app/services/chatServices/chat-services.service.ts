@@ -22,6 +22,7 @@ export class ChatService {
   }
 
   getChatList(): Observable<Chat[]> {
+    this.refreshChats();
     return this.chats$.asObservable();
   }
 

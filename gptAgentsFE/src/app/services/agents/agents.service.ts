@@ -26,6 +26,7 @@ export class AgentsService {
   }
 
   getAgentUpdates(): Observable<Agent[]> {
+    this.refreshAgents();
     return this.agents$.asObservable();
   }
 

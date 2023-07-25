@@ -1,2 +1,8 @@
-<p>chat-element works!</p>
-<p (click)="openChat()" class="h3">{{ chat.roleName }}</p>
+<a
+  (click)="openChat()"
+  class="nav-link"
+  aria-current="page"
+  [ngClass]="{ active: chat.id === activeChatId }"
+>
+  {{ chat.roleName }}
+</a>

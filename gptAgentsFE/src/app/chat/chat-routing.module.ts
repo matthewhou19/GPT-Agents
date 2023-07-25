@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 
 import { RouterModule, Routes } from '@angular/router';
-import { ChatListComponent } from './chat-list/chat-list.component';
 import { ChatboardComponent } from './chatboard/chatboard.component';
 import { chatIdResolver } from '../services/chatServices/chat-services.service';
+import { ChatComponent } from './chat.component';
 const routes: Routes = [
   {
     path: '',
-    component: ChatListComponent,
+    component: ChatComponent,
     children: [
       {
         path: 'chat-board/:id',

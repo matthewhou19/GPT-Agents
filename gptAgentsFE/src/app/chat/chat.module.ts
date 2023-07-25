@@ -7,8 +7,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { ChatRoutingModule } from './chat-routing.module';
+import { ChatComponent } from './chat.component';
+import { ChatBannerComponent } from './chat-banner/chat-banner.component';
+import { SmChatListComponent } from './sm-chat-list/sm-chat-list.component';
 @NgModule({
-  declarations: [ChatboardComponent, ChatListComponent, ChatElementComponent],
+  declarations: [
+    ChatboardComponent,
+    ChatListComponent,
+    ChatElementComponent,
+    ChatComponent,
+    ChatBannerComponent,
+    SmChatListComponent,
+  ],
   imports: [
     CommonModule,
     NgbModule,

@@ -3,8 +3,6 @@ package com.example.gptagents.controllers;
 import com.example.gptagents.Services.MessageService;
 import com.example.gptagents.model.Message;
 import com.example.gptagents.model.MessageDTO;
-import org.apache.catalina.connector.Response;
-import org.hibernate.dialect.SybaseSqmToSqlAstConverter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,10 +33,14 @@ public class MessageController {
     public ResponseEntity<MessageDTO> MessageRequest(@RequestBody MessageDTO message) {
         System.out.println(message.getContent());
         Message m = messageService.postMessage(messageService.DTOToEntity(message));
+        if (m != null) {
+            return new ResponseEntity<>(messageService.entityToDTO(m), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
        // System.out.println(m);
       //  for (Message m1 : m.getChat().getMessages()) {
     //        System.out.println(m1);
        // }
-        return new ResponseEntity<>(messageService.entityToDTO(m), HttpStatus.OK);
+
     }
 }
