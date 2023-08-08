@@ -13,13 +13,39 @@ GPT-Agents is a project that aims to provide users with a customizable chat expe
 - [Contributing](#contributing)
 - [License](#license)
 
-## Installation
+## Prerequisites
 
-At the moment, users need to manually set up the environment for the GPT-Agents application. Here are the steps:
+Before you begin, ensure you have met the following requirements:
 
-1. Download all the code from the [GPT-Agents GitHub repository](https://github.com/matthewhou19/GPT-Agents).
-2. Start the frontend server and backend server.
-3. Set up a local MySQL server.
+- You have installed the latest version of [Java](https://www.java.com/en/download/), [Angular](https://angular.io/guide/setup-local), and [MySQL](https://dev.mysql.com/downloads/installer/).
+- You have a Windows/Mac/Linux machine.
+
+## Getting Started with GPT-Agents
+
+To install GPT-Agents, follow these steps:
+
+1. Clone the repo: `git clone https://github.com/matthewhou19/GPT-Agents.git`
+2. Navigate to the project directory: `cd GPT-Agents`
+3. Install dependencies:
+   - For the backend, navigate to the backend directory and run `mvn install`
+   - For the frontend, navigate to the frontend directory and run `npm install`
+4. Configure MySQL:
+
+   - Ensure your MySQL server is running.
+   - In the backend code, update the `application.properties` file with your MySQL configuration:
+
+     ```
+     spring.datasource.url=jdbc:mysql://localhost:3306/gpt-agents
+     spring.datasource.username=root
+     spring.datasource.password=matthew
+     ```
+
+     Replace `localhost:3306` with your MySQL host and port, `gpt-agents` with your database name, and `root` and `matthew` with your MySQL username and password, respectively.
+
+5. Start the servers:
+   - For the backend, navigate to the backend directory and run `mvn spring-boot:run`
+   - For the frontend, navigate to the frontend directory and run `ng serve`
+6. Open your web browser and visit `http://localhost:4200` to start using GPT-Agents!
 
 ## Usage
 
