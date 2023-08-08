@@ -27,8 +27,10 @@ To install GPT-Agents, follow these steps:
 1. Clone the repo: `git clone https://github.com/matthewhou19/GPT-Agents.git`
 2. Navigate to the project directory: `cd GPT-Agents`
 3. Install dependencies:
+
    - For the backend, navigate to the backend directory and run `mvn install`
    - For the frontend, navigate to the frontend directory and run `npm install`
+
 4. Configure MySQL:
 
    - Ensure your MySQL server is running.
@@ -43,15 +45,21 @@ To install GPT-Agents, follow these steps:
      Replace `localhost:3306` with your MySQL host and port, `gpt-agents` with your database name, and `root` and `matthew` with your MySQL username and password, respectively.
 
 5. Start the servers:
+
    - For the backend, navigate to the backend directory and run `mvn spring-boot:run`
    - For the frontend, navigate to the frontend directory and run `ng serve`
+
 6. Open your web browser and visit `http://localhost:4200` to start using GPT-Agents!
 
 ## Usage
 
 As of now, the following functionalities have been implemented:
 
-1.**Create Agent**: Users can create and update agents both in the frontend and backend. 2.**Create Chat**: Users can create chats based on agents in the frontend and backend. 3.**Chat with OpenAI**: Users can chat with OpenAI and save the messages in the MySQL database.
+1.**Create Agent**: Users can create and update agents both in the frontend and backend.
+
+2.**Create Chat**: Users can create chats based on agents in the frontend and backend.
+
+3.**Chat with OpenAI**: Users can chat with OpenAI and save the messages in the MySQL database.
 
 ## Tech Stack
 
