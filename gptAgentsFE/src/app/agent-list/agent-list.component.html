@@ -1,9 +1,10 @@
-<p>agent-list works!</p>
-<div class="row">
-  <div class="col-12">
-    <app-agent-element
-      *ngFor="let agentElement of agentLists"
-      [agent]="agentElement"
-    ></app-agent-element>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <app-agent-element
+        *ngFor="let agentElement of agentLists"
+        [agent]="agentElement"
+      ></app-agent-element>
+    </div>
   </div>
 </div>

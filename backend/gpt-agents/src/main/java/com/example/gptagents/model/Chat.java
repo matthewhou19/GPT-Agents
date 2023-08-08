@@ -1,5 +1,6 @@
 package com.example.gptagents.model;
 
+import com.example.gptagents.apis.openai.openAIMessage;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -66,5 +67,9 @@ public class Chat {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public openAIMessage generate() {
+        return new openAIMessage("system", "this is the role you should play:" +this.roleName+"this is a description for the role:" + this.description +"I want you to generate the following message with this role, But remember: only response the last message");
     }
 }

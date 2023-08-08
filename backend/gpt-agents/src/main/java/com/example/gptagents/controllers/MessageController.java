@@ -33,11 +33,14 @@ public class MessageController {
     public ResponseEntity<MessageDTO> MessageRequest(@RequestBody MessageDTO message) {
         System.out.println(message.getContent());
         Message m = messageService.postMessage(messageService.DTOToEntity(message));
+
+
         if (m != null) {
+            System.out.println(m);
             return new ResponseEntity<>(messageService.entityToDTO(m), HttpStatus.OK);
         }
         return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-       // System.out.println(m);
+       //
       //  for (Message m1 : m.getChat().getMessages()) {
     //        System.out.println(m1);
        // }

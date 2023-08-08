@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 @Service
 public class OpenAIService {
     @Value("${openai.model}")
@@ -22,6 +24,17 @@ public class OpenAIService {
         // call the API
         ChatResponse response = restTemplate.postForObject(apiUrl, request, ChatResponse.class);
 
+        if (response == null || response.getChoices() == null || response.getChoices().isEmpty()) {
+            return "No response";
+        }
+
+        // return the first response
+        return response.getChoices().get(0).getMessage().getContent();
+    }
+
+    public String chat( List<openAIMessage> messages) {
+        ChatRequest request = new ChatRequest(model, messages);
+        ChatResponse response = restTemplate.postForObject(apiUrl, request, ChatResponse.class);
         if (response == null || response.getChoices() == null || response.getChoices().isEmpty()) {
             return "No response";
         }

@@ -12,13 +12,10 @@ export class MessageService {
     return this.http.get<Message[]>('http://localhost:8080/api/messages/' + id);
   }
 
-  sendMessage(userMessage: Message, id: number): Observable<Message> {
+  sendMessage(userMessage: Message, id: number): Observable<any> {
     userMessage.chatId = id;
     //console.log(id);
 
-    return this.http.post<Message>(
-      'http://localhost:8080/api/messages',
-      userMessage
-    );
+    return this.http.post('http://localhost:8080/api/messages', userMessage);
   }
 }

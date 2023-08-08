@@ -16,6 +16,17 @@ public class ChatRequest {
         this.messages.add(message);
     }
 
+    public ChatRequest(String model, List<openAIMessage> messages) {
+        this.model = model;
+        this.n = 1;
+        this.messages = new ArrayList<>();
+        for (openAIMessage m : messages) {
+            this.messages.add(m);
+        }
+
+    }
+
+
     public String getModel() {
         return model;
     }

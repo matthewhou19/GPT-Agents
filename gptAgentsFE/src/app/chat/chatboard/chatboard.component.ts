@@ -44,15 +44,18 @@ export class ChatboardComponent implements OnInit {
     console.log(this.chat.id);
     this.messagesService
       .sendMessage(new Message(this.inputMessage, 'USER'), this.chat.id!)
-      .pipe(timeout(2000))
+      .pipe(timeout(10000))
       .subscribe({
         next: (response) => {
           this.isSending = false;
+          console.log(response);
+
           this.messages.push(response);
           this.inputMessage = '';
         },
         error: (err) => {
           this.isSending = false;
+          console.log(err);
           this.messages.push(err.message);
           this.inputMessage = '';
         },

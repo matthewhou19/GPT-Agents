@@ -1,9 +1,4 @@
-import {
-  Component,
-  ComponentFactoryResolver,
-  ViewChild,
-  ViewContainerRef,
-} from '@angular/core';
+import { Component, ViewChild, ViewContainerRef } from '@angular/core';
 import { SmChatListComponent } from '../sm-chat-list/sm-chat-list.component';
 
 @Component({
@@ -14,22 +9,20 @@ import { SmChatListComponent } from '../sm-chat-list/sm-chat-list.component';
 export class ChatBannerComponent {
   @ViewChild('container', { read: ViewContainerRef })
   container: ViewContainerRef;
+  listShown: boolean = false;
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver) {}
+  constructor() {}
   getChatList() {
     this.createDynamicComponent();
   }
   createDynamicComponent() {
+    this.container.clear();
+    this.container.createComponent<SmChatListComponent>(SmChatListComponent);
     // Get the component factory for the DynamicComponent
-    const componentFactory =
-      this.componentFactoryResolver.resolveComponentFactory(
-        SmChatListComponent
-      );
-
-    // Create an instance of the component
-    const componentRef = componentFactory.create(this.container.injector);
-
-    // Attach the component to the container
-    this.container.insert(componentRef.hostView);
+    this.listShown = true;
+  }
+  closeList() {
+    this.container.clear();
+    this.listShown = false;
   }
 }

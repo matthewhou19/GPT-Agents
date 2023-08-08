@@ -8,6 +8,7 @@ import com.example.gptagents.model.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,7 +32,20 @@ public class MessageService {
 
     @Transactional
     public Message postMessage(Message message) {
-        String aiRespond =  openAIService.chat(new openAIMessage("user", message.getContent()));
+        List<openAIMessage> openAIMessageList = new ArrayList<>();
+        openAIMessageList.add(message.getChat().generate());
+        List<Message> originalMessageList = getAllMessageByChatId(message.getChat().getId());
+        for (Message m : originalMessageList) {
+            if (m.getSource() == MessageSource.AI) {
+                openAIMessageList.add(new openAIMessage("assistant", m.getContent()));
+            }
+            openAIMessageList.add(new openAIMessage("user", m.getContent()));
+        }
+
+        openAIMessageList.add(new openAIMessage("user", message.getContent()));
+
+        String aiRespond =  openAIService.chat(openAIMessageList);
+        System.out.println(aiRespond);
         if (aiRespond != null && aiRespond.length() > 0) {
             Message resMessage = new Message();
             resMessage.setSource(MessageSource.AI);

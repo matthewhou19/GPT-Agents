@@ -3,4 +3,7 @@
     show the list
   </button>
   <div #container></div>
+  <button *ngIf="listShown" type="button" class="btn btn-light" (click)="closeList()">
+    close the chat list
+  </button>
 </div>
