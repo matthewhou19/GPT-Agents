@@ -4,6 +4,10 @@
 
 GPT-Agents is a project that aims to provide users with a customizable chat experience powered by OpenAI's Chat API. The project allows users to create their own chat agents to assist with various tasks, such as translation, name generation, or code interpretation. The stored chat messages can be leveraged to create fine-tuned models, and the data can be transferred to interact with other GPT models.
 
+## Learning Resources
+
+If you're new to the OpenAI API and would like to understand it better before diving into this project, you can check out a simpler project called [NameGeneratorGPT](https://github.com/matthewhou19/NameGeneratorGPT). NameGeneratorGPT is a learning tool that uses the OpenAI API to generate unique names for newborn children, inspired by classical masterpieces. It provides a good starting point for understanding how to interact with the OpenAI API.
+
 ## Table of Contents
 
 - [Installation](#installation)
