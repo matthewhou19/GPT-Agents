@@ -1,16 +1,29 @@
-# Use Node.js
-FROM node:18.16.0
-# Set the working directory in the Docker image
-WORKDIR /usr/src/app
-# Copy package.json and package-lock.json to the Docker image
+# Use Node.js as the base image
+FROM node:16 as build
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the package.json and package-lock.json files
 COPY package*.json ./
-# Install Angular CLI and dependencies
-RUN npm install -g @angular/cli && npm install
-# Copy the rest of your Angular app to the Docker image
+
+# Install dependencies
+RUN npm install
+
+# Copy the rest of the project files
 COPY . .
-# Build your Angular app
-RUN ng build --configuration production
-# Use Nginx to serve your Angular app
-FROM nginx:1.19.0-alpine as final
-# Copy the build output to replace the default Nginx contents
-COPY --from=0 /usr/src/app/dist/gpt-agents-fe /usr/share/nginx/html
+
+# Build the Angular project
+RUN npm run build
+
+# Use Nginx to serve the built files
+FROM nginx:alpine
+
+# Copy the built files from the build stage
+COPY --from=build /app/dist/gpt-agents-fe /usr/share/nginx/html
+
+# Expose port 80
+EXPOSE 80
+
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]
