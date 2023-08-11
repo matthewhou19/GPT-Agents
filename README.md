@@ -4,6 +4,10 @@
 
 GPT-Agents is a project that aims to provide users with a customizable chat experience powered by OpenAI's Chat API. The project allows users to create their own chat agents to assist with various tasks, such as translation, name generation, or code interpretation. The stored chat messages can be leveraged to create fine-tuned models, and the data can be transferred to interact with other GPT models.
 
+## Learning Resources
+
+If you're new to the OpenAI API and would like to understand it better before diving into this project, you can check out a simpler project called [NameGeneratorGPT](https://github.com/matthewhou19/NameGeneratorGPT). NameGeneratorGPT is a learning tool that uses the OpenAI API to generate unique names for newborn children, inspired by classical masterpieces. It provides a good starting point for understanding how to interact with the OpenAI API.
+
 ## Table of Contents
 
 - [Suggested Way to Run: Docker](#suggested-way-to-run-docker)
@@ -43,12 +47,14 @@ Running GPT-Agents with Docker is the suggested way to get the project up and ru
 1. Clone the repo: `git clone https://github.com/matthewhou19/GPT-Agents.git`
 2. Navigate to the project directory: `cd GPT-Agents`
 3. Install dependencies:
+
    - For the backend, navigate to the backend directory and run `mvn install`
    - For the frontend, navigate to the frontend directory and run `npm install`
+
 4. Configure MySQL:
 
    - Ensure your MySQL server is running.
-   - In the backend code, update the `application.properties` file with your MySQL configuration:
+   - In the backend code, update the `application-local.properties` file with your MySQL configuration:
 
      ```
      spring.datasource.url=jdbc:mysql://localhost:3306/gpt-agents
@@ -59,13 +65,11 @@ Running GPT-Agents with Docker is the suggested way to get the project up and ru
      Replace `localhost:3306` with your MySQL host and port, `gpt-agents` with your database name, and `root` and `matthew` with your MySQL username and password, respectively.
 
 5. Start the servers:
+
    - For the backend, navigate to the backend directory and run `mvn spring-boot:run`
    - For the frontend, navigate to the frontend directory and run `ng serve`
+
 6. Open your web browser and visit `http://localhost:4200` to start using GPT-Agents!
-
-## Learning Resources
-
-If you're new to the OpenAI API and would like to understand it better before diving into this project, you can check out a simpler project called [NameGeneratorGPT](https://github.com/matthewhou19/NameGeneratorGPT). NameGeneratorGPT is a learning tool that uses the OpenAI API to generate unique names for newborn children, inspired by classical masterpieces. It provides a good starting point for understanding how to interact with the OpenAI API.
 
 ## Usage
 
