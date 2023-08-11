@@ -8,6 +8,8 @@ services:
       - "8080:8080"
     networks:
       - mynetwork
+    depends_on:
+      - mysql
 
   frontend:
     build:
@@ -20,5 +22,18 @@ services:
     environment:
       - BACKEND_URL=http://backend:8080
 
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: gpt-agents
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - mynetwork
+
 networks:
   mynetwork:
+
+volumes:
+  mysql-data:
