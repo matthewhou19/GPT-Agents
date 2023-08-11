@@ -4,6 +4,7 @@ import { of, Observable, delay, catchError, Subject, tap } from 'rxjs';
 import { Message } from 'src/app/modle/Message';
 import { Chat } from 'src/app/modle/chat';
 import { HttpClient } from '@angular/common/http';
+import { EnvService } from '../env-service.service';
 import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
@@ -12,8 +13,10 @@ import {
 @Injectable()
 export class ChatService {
   private chats$: Subject<Chat[]> = new Subject<Chat[]>();
+  private backendUrl: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private envService: EnvService) {
+    this.backendUrl = this.envService.get('BACKEND_URL');
     this.refreshChats();
   }
 
@@ -27,7 +30,7 @@ export class ChatService {
   }
 
   reqeustChatList(): Observable<Chat[]> {
-    return this.http.get<Chat[]>('http://localhost:8080/api/chats');
+    return this.http.get<Chat[]>(this.backendUrl + '/api/chats');
   }
 
   refreshChats(): void {
@@ -38,13 +41,13 @@ export class ChatService {
 
   addChat(agent: Agent): Observable<Chat> {
     return this.http
-      .post<Chat>('http://localhost:8080/api/chats/create', {
+      .post<Chat>(this.backendUrl + '/api/chats/create', {
         agentId: agent.id,
       })
       .pipe(tap(() => this.refreshChats()));
   }
   getChatById(id: number): Observable<Chat> {
-    return this.http.get<Chat>(`http://localhost:8080/api/chats/${id}`);
+    return this.http.get<Chat>(this.backendUrl + `/api/chats/${id}`);
   }
 }
 export const chatIdResolver: ResolveFn<any> = (

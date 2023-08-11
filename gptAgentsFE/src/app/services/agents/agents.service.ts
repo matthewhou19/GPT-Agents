@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { Agent } from '../../modle/agent';
 import { Observable, of } from 'rxjs';
 import { catchError, Subject, tap } from 'rxjs';
+import { EnvService } from '../env-service.service';
 import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
@@ -11,13 +12,14 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class AgentsService {
   private agents$: Subject<Agent[]> = new Subject<Agent[]>();
-
-  constructor(private http: HttpClient) {
+  private backendUrl: string;
+  constructor(private http: HttpClient, private envService: EnvService) {
+    this.backendUrl = envService.get('BACKEND_URL');
     this.refreshAgents();
   }
 
   reqeustAgents(): Observable<Agent[]> {
-    return this.http.get<Agent[]>('http://localhost:8080/api/agents');
+    return this.http.get<Agent[]>(this.backendUrl + '/api/agents');
   }
   refreshAgents(): void {
     this.reqeustAgents().subscribe((agents) => {
@@ -33,7 +35,7 @@ export class AgentsService {
   addAgent(agent: Agent) {
     console.log(agent);
     this.http
-      .post('http://localhost:8080/api/agents/create', agent)
+      .post(this.backendUrl + '/api/agents/create', agent)
 
       .pipe(tap(() => this.refreshAgents()))
       .subscribe((response) => {
@@ -42,13 +44,13 @@ export class AgentsService {
   }
 
   getAgentById(id: number): Observable<Agent> {
-    return this.http.get<Agent>(`http://localhost:8080/api/agents/${id}`);
+    return this.http.get<Agent>(this.backendUrl + `/api/agents/${id}`);
   }
 
   updateAgent(id: number, newAgent: Agent) {
     newAgent.id = id;
     this.http
-      .put<string>(`http://localhost:8080/api/agents/update`, newAgent)
+      .put<string>(this.backendUrl + `/api/agents/update`, newAgent)
       .pipe(tap(() => this.refreshAgents()))
       .subscribe((data) => {
         console.log(data);
@@ -57,7 +59,7 @@ export class AgentsService {
 
   deleteAgent(id: number) {
     this.http
-      .delete(`http://localhost:8080/api/agents/delete/${id}`)
+      .delete(this.backendUrl + `/api/agents/delete/${id}`)
       .pipe(tap(() => this.refreshAgents()))
       .subscribe((data) => {
         console.log(data);
