@@ -1,6 +1,7 @@
 version: "3"
 services:
   backend:
+    image: matthewhou2016/backend:latest # Image name and tag
     build:
       context: ./backend/gpt-agents
       dockerfile: Dockerfile
@@ -12,6 +13,7 @@ services:
       - mysql
 
   frontend:
+    image: matthewhou2016/frontend:latest
     build:
       context: ./gptAgentsFE
       dockerfile: Dockerfile
