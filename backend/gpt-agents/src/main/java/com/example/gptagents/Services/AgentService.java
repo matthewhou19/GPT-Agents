@@ -1,21 +1,23 @@
 package com.example.gptagents.Services;
 
 import com.example.gptagents.Repositories.AgentRepository;
+import com.example.gptagents.errors.CustomDatabaseException;
 import com.example.gptagents.errors.ResourceAlreadyExistsException;
 import com.example.gptagents.errors.ResourceNotFoundException;
 import com.example.gptagents.model.Agent;
 
+import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Collection;
+
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class AgentService {
     AgentRepository agentRepository;
+    Logger logger;
     public AgentService ( AgentRepository agentRepository) {
         this.agentRepository = agentRepository;
     }
@@ -29,10 +31,7 @@ public class AgentService {
 
     public Agent updateAgent(Agent agent) {
        Agent a = getAgent(agent.getId());
-       if (a != null) {
-           return  agentRepository.save(agent);
-       }
-       throw  new ResourceNotFoundException("Agent", "id", agent.getId());
+       return  agentRepository.save(agent);
     }
 
     public Agent createAgent(Agent agent) {
@@ -43,21 +42,15 @@ public class AgentService {
         return agentRepository.save(agent);
     }
     @Transactional
-    public boolean deleteAgent(Long id) {
-
+    public void deleteAgent(Long id) {
+        Agent agent = getAgent(id);
         try {
-            Agent agent = getAgent(id);
-            if (agent != null) {
-                agentRepository.delete(agent);
-                return true;
-            } else {
-                return false; // Agent not found
-            }
+            agentRepository.delete(agent);
         } catch (Exception e) {
             // Log the exception for debugging purposes
             // logger.error("Failed to delete agent", e);
-            return false;
+            //logger.error("Error deleting agent", e);
+            throw new CustomDatabaseException("Agent", "delete", id);
         }
     }
-
 }

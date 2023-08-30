@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -59,7 +59,7 @@ public class AgentControllerTest {
                         .content(new ObjectMapper().writeValueAsString(new Agent("Agent1"))))
                 .andExpect(status().isCreated()).andExpect(jsonPath("$.role", is("Agent1")));
 
-        when(agentService.createAgent((any(Agent.class)))).thenThrow(new ResourceAlreadyExistsException("Agent", "role", "duplicate role name"));
+        when(agentService.createAgent(any(Agent.class))).thenThrow(new ResourceAlreadyExistsException("Agent", "role", "duplicate role name"));
         mockMvc.perform(post(url + "/create").contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(new Agent("Agent1"))))
                 .andExpect(status().isConflict()).andExpect(jsonPath("$.message", is("Agent already exist with role : 'duplicate role name'")));
@@ -73,12 +73,23 @@ public class AgentControllerTest {
         mockMvc.perform(get(url + "/0")).andExpect(status().isNotFound());
     }
     @Test
-    public void updateAgentTest() {
-
+    public void updateAgentTest() throws Exception{
+        Agent a = new Agent("Agent1");
+        a.setId(1l);
+        when(agentService.updateAgent(any(Agent.class))).thenReturn(a);
+        mockMvc.perform(put(url + "/update").contentType(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsString(a)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.role", is("Agent1")));
     }
 
     @Test
-    public void deleteAgentTest() {
-
+    public void deleteAgentTest() throws Exception{
+        mockMvc.perform(delete(url + "/delete/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.fieldName", is("Agent")))
+                .andExpect(jsonPath("$.method", is("delete")))
+                .andExpect(jsonPath("$.message", is("successfully")));
+        verify(agentService, times(1)).deleteAgent(1L);
     }
 }

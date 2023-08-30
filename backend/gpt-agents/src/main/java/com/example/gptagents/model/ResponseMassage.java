@@ -3,12 +3,12 @@ package com.example.gptagents.model;
 public class ResponseMassage {
     private String fieldName;
     private String method;
-    private String massage;
+    private String message;
 
-    public ResponseMassage(String fieldName, String method, String massage) {
+    public ResponseMassage(String fieldName, String method, String message) {
         this.fieldName = fieldName;
         this.method = method;
-        this.massage = massage;
+        this.message = message;
     }
 
     public String getFieldName() {
@@ -27,11 +27,11 @@ public class ResponseMassage {
         this.method = method;
     }
 
-    public String getMassage() {
-        return massage;
+    public String getMessage() {
+        return message;
     }
 
-    public void setMassage(String massage) {
-        this.massage = massage;
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

@@ -57,7 +57,11 @@ public class RestExceptionHandler {
         return new ResponseEntity<>(messages, status);
     }
 
-
+    @ExceptionHandler(CustomDatabaseException.class)
+    public ResponseEntity<?> handleCustomDatabaseException(CustomDatabaseException cdeException, WebRequest request) {
+        logger.error("Database error", cdeException);
+        return buildErrorResponse(cdeException.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, request);
+    }
 
 
 

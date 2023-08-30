@@ -23,7 +23,6 @@ public class AgentController {
     public ResponseEntity<List<Agent>> getAllAgent() {
         List<Agent> list = agentService.findAllAgents();
         ResponseEntity<List<Agent>> response = new ResponseEntity<>(list, HttpStatus.OK);
-
         return response;
     }
     @GetMapping("/{id}")
@@ -37,22 +36,13 @@ public class AgentController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<ResponseMassage> updateAgent(@Valid @RequestBody Agent agent) {
-     agentService.updateAgent(agent);
-     return new ResponseEntity<>(new ResponseMassage("Agent", "update", "successfully"), HttpStatus.OK);
+    public ResponseEntity<Agent> updateAgent(@Valid @RequestBody Agent agent) {
+     return new ResponseEntity<>(agentService.updateAgent(agent), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<ResponseMassage> deleteAgent(@PathVariable Long id) {
-        try {
-            if (agentService.deleteAgent(id)) {
-                return new ResponseEntity<>(new ResponseMassage("Agent", "delete", "successfully"), HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(new ResponseMassage("Agent", "delete", "not found"), HttpStatus.NOT_FOUND);
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(new ResponseMassage("Agent", "delete", "failed"), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
+        agentService.deleteAgent(id);
+        return new ResponseEntity<>(new ResponseMassage("Agent", "delete", "successfully"), HttpStatus.OK);
     }
 }
